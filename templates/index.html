@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post" action="/save">
+        <input type="text" name="contents" placeholder="contents">
+        <button>Submit</button>
+
+        <hr>
+
+        {% for c in contents %}
+            <p>{{ c }}<input>Edit</p>
+        {% endfor %}
+    </form>
+</body>
+</html>
