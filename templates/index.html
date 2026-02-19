@@ -8,12 +8,32 @@
     <form method="post" action="/save">
         <input type="text" name="contents" placeholder="contents">
         <button>Submit</button>
+    </form>
 
         <hr>
 
-        {% for c in contents %}
-            <p>{{ c }}<input>Edit</p>
-        {% endfor %}
-    </form>
+<!--        {% for c in contents %}-->
+<!--            <p>{{ c }}<button>Edit</button><button>Delete</button></p>-->
+<!--        {% endfor %}-->
+
+        <ul>
+            {% for c in contents %}
+                {% set idx = loop.index0 %}
+                    <li>
+                        {{ c }}
+
+                        <!-- Edit: 編集ページへ -->
+                        <a href="{{ url_for('edit_page', idx=idx) }}">
+                            <button type="button">Edit</button>
+                        </a>
+
+                        <!-- Delete: POSTでindex送信 -->
+                        <form action="{{ url_for('delete') }}" method="post" style="display:inline;">
+                            <input type="hidden" name="idx" value="{{ idx }}">
+                            <button type="submit" onclick="return confirm('削除しますか？')">Delete</button>
+                        </form>
+                    </li>
+            {% endfor %}
+</ul>
 </body>
 </html>

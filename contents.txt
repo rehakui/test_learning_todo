@@ -1,5 +1,1 @@
-fagakl
-asaljdpajopira
-testの結果は、、、
-
-
+dbを再作成して検証。結果、成功した。
