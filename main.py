@@ -11,7 +11,8 @@ CONTENTS_FILE = Path("./test_learning_todo/contents.txt")
 def load_contents():
     loading_contents = CONTENTS_FILE.read_text()
     # リストに入れてる
-    return [line for line in loading_contents.splitlines()]
+    # return [line for line in loading_contents.splitlines()]
+    return loading_contents.splitlines()
 
 
 def save_contents(lines):
