@@ -1,39 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Todo</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <form method="post" action="/save">
-        <input type="text" name="contents" placeholder="contents">
-        <button>Submit</button>
+  <main class="container">
+    <h1>Todo</h1>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash">
+          {% for m in messages %}
+            <li>{{ m }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form class="add" method="post" action="{{ url_for('create_todo') }}">
+      <input name="title" placeholder="やることを入力" maxlength="200" />
+      <button type="submit">追加</button>
     </form>
 
-        <hr>
+    <ul class="list">
+      {% for todo in todos %}
+        <li class="item">
+          <div class="title {% if todo.done %}done{% endif %}">
+            {{ todo.title }}
+          </div>
 
-<!--        {% for c in contents %}-->
-<!--            <p>{{ c }}<button>Edit</button><button>Delete</button></p>-->
-<!--        {% endfor %}-->
+          <div class="actions">
+            <form method="post" action="{{ url_for('toggle_todo', todo_id=todo.id) }}">
+              <button type="submit">{% if todo.done %}未完了{% else %}完了{% endif %}</button>
+            </form>
 
-        <ul>
-            {% for c in contents %}
-                {% set idx = loop.index0 %}
-                    <li>
-                        {{ c }}
-
-                        <!-- Edit: 編集ページへ -->
-                        <a href="{{ url_for('edit_page', idx=idx) }}">
-                            <button type="button">Edit</button>
-                        </a>
-
-                        <!-- Delete: POSTでindex送信 -->
-                        <form action="{{ url_for('delete') }}" method="post" style="display:inline;">
-                            <input type="hidden" name="idx" value="{{ idx }}">
-                            <button type="submit" onclick="return confirm('削除しますか？')">Delete</button>
-                        </form>
-                    </li>
-            {% endfor %}
-</ul>
+            <form method="post" action="{{ url_for('delete_todo', todo_id=todo.id) }}"
+                  onsubmit="return confirm('削除しますか？');">
+              <button type="submit" class="danger">削除</button>
+            </form>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </main>
 </body>
 </html>

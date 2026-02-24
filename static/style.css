@@ -1,0 +1,15 @@
+body { font-family: system-ui, -apple-system, sans-serif; margin: 0; }
+.container { max-width: 720px; margin: 24px auto; padding: 0 16px; }
+h1 { margin: 0 0 16px; }
+
+.add { display: flex; gap: 8px; margin-bottom: 16px; }
+.add input { flex: 1; padding: 10px; }
+
+.list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.item { border: 1px solid #ddd; border-radius: 10px; padding: 12px; display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.title.done { text-decoration: line-through; opacity: 0.6; }
+
+.actions { display: flex; gap: 8px; }
+button { padding: 8px 10px; cursor: pointer; }
+button.danger { border: 1px solid #c00; }
+.flash { padding-left: 16px; }
